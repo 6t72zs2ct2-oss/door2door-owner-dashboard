@@ -430,19 +430,30 @@ footer strong{color:#111318 !important}
 
 
 <style>
-/* FINAL VI DESKTOP LAYOUT FIX */
-html, body { max-width:100%; overflow-x:hidden !important; }
-.hero > .c { width:min(calc(100% - 32px), 960px) !important; margin-left:auto !important; margin-right:auto !important; }
-.hero h1 { max-width:900px !important; }
-.hero p { max-width:760px !important; }
+/* FINAL VI DESKTOP HERO FIX v2 */
+html,body{max-width:100%;overflow-x:hidden !important}
+.hero-content{width:min(calc(100% - 32px),1120px) !important;margin:0 auto !important;display:block !important}
+.hero-copy{width:100% !important;max-width:900px !important;margin:0 auto !important;text-align:center !important}
+.hero .badge{margin-left:auto !important;margin-right:auto !important}
+.hero .ey{margin-top:2px !important}
+.hero h1{max-width:900px !important;margin-left:auto !important;margin-right:auto !important}
+.hero p{max-width:760px !important;margin-left:auto !important;margin-right:auto !important}
+.hero .actions{justify-content:center !important}
+.bilingual-note{text-align:center !important;margin:14px auto 0 !important;max-width:900px !important}
 @media (min-width:761px){
-  .hero > .c { padding-left:0 !important; padding-right:0 !important; }
-  .hero h1 { font-size:clamp(48px,5.4vw,72px) !important; letter-spacing:-2.5px !important; }
+  .hero{padding:82px 0 58px !important}
+  .hero-content{padding:0 !important}
+  .hero h1{font-size:clamp(48px,5.6vw,72px) !important;letter-spacing:-2.5px !important;line-height:1.02 !important}
+  .hero p{font-size:18px !important;line-height:1.6 !important}
 }
 @media (max-width:760px){
-  .hero > .c { width:calc(100% - 32px) !important; }
-  .hero h1 { font-size:clamp(40px,11vw,58px) !important; letter-spacing:-2px !important; }
-  .hero p { font-size:17px !important; }
+  .hero-content{width:calc(100% - 32px) !important}
+  .hero-copy{text-align:left !important}
+  .hero .badge{margin-left:0 !important;margin-right:0 !important}
+  .hero h1{font-size:clamp(40px,11vw,58px) !important;letter-spacing:-2px !important}
+  .hero p{font-size:17px !important}
+  .hero .actions{justify-content:flex-start !important}
+  .bilingual-note{text-align:left !important}
 }
 </style>
 </head>
@@ -451,7 +462,7 @@ html, body { max-width:100%; overflow-x:hidden !important; }
 <main>
 <div class="container" style="text-align:center;margin-top:8px"><div class="hero-slogan">WE COME TO YOU.</div></div>
 <div id="coming-soon" class="coming-soon-banner"><div class="coming-soon-icon">✨</div><div><strong>Một điều thú vị sắp ra mắt!</strong><span>Hệ thống đặt lịch trực tuyến đang được hoàn thiện để mang đến cho bạn trải nghiệm Door2Door thật đơn giản và thuận tiện.</span></div></div>
-<section class="hero"><div class="c"><div class="badge">DỊCH VỤ CHĂM SÓC XE LƯU ĐỘNG</div><div class="ey">Dịch vụ chuyên nghiệp, tận nơi</div><h1>Xe sạch đẹp.<br>Phục vụ tận nơi.</h1><p>Door2Door Detailing mang dịch vụ chăm sóc xe chuyên nghiệp đến tận nhà, nơi làm việc hoặc địa điểm phù hợp của bạn. Chúng tôi tự chuẩn bị nước, nguồn điện, thiết bị và các sản phẩm chăm sóc xe cần thiết.</p><div class="actions"><a class="btn blue coming-soon-btn" href="#coming-soon">✨ ĐẶT LỊCH SẮP RA MẮT</a><a class="btn" href="#services">Xem Dịch Vụ</a></div></div><div class="bilingual-note">Phục vụ bằng tiếng Việt • Đặt lịch trực tuyến đơn giản • Không cần tạo tài khoản</div></div></section>
+<section class="hero"><div class="c hero-content"><div class="hero-copy"><div class="badge">DỊCH VỤ CHĂM SÓC XE LƯU ĐỘNG</div><div class="ey">Dịch vụ chuyên nghiệp, tận nơi</div><h1>Xe sạch đẹp.<br>Phục vụ tận nơi.</h1><p>Door2Door Detailing mang dịch vụ chăm sóc xe chuyên nghiệp đến tận nhà, nơi làm việc hoặc địa điểm phù hợp của bạn. Chúng tôi tự chuẩn bị nước, nguồn điện, thiết bị và các sản phẩm chăm sóc xe cần thiết.</p><div class="actions"><a class="btn blue coming-soon-btn" href="#coming-soon">✨ ĐẶT LỊCH SẮP RA MẮT</a><a class="btn" href="#services">Xem Dịch Vụ</a></div></div><div class="bilingual-note">Phục vụ bằng tiếng Việt • Đặt lịch trực tuyến đơn giản • Không cần tạo tài khoản</div></div></section>
 <section class="quick-strip"><div class="c quick-grid">
   <div><span class="quick-icon">⚡</span><strong>Chúng Tôi Đến Tận Nơi</strong><small>Nhà • Nơi làm việc • Địa điểm phù hợp</small></div>
   <div><span class="quick-icon">💧</span><strong>Tự Mang Nước & Điện</strong><small>Bạn không cần chuẩn bị</small></div>
