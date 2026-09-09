@@ -35,9 +35,25 @@ function token(){return state.session?.access_token||localStorage.getItem(AUTH+'
 function showInviteSetup(){ $('loginForm').classList.add('hidden'); $('inviteView').classList.remove('hidden'); $('loginMsg').classList.add('hidden'); }
 function showLoginForm(){ $('inviteView').classList.add('hidden'); $('loginForm').classList.remove('hidden'); }
 function getHashParams(){ const raw=window.location.hash.replace(/^#/,''); return new URLSearchParams(raw); }
+function getInviteParams(){
+  const h=getHashParams(), q=new URLSearchParams(window.location.search);
+  return {
+    access:h.get('access_token')||q.get('access_token'),
+    refresh:h.get('refresh_token')||q.get('refresh_token'),
+    type:h.get('type')||q.get('type')||'',
+    tokenHash:q.get('token_hash')||q.get('token')
+  };
+}
 async function acceptInvite(){
-  const h=getHashParams();
-  const access=h.get('access_token'), refresh=h.get('refresh_token'), type=h.get('type');
+  const p=getInviteParams();
+  let access=p.access, refresh=p.refresh, type=p.type;
+  if((!access || !refresh) && p.tokenHash && (type==='invite'||type==='recovery')){
+    try{
+      const verifyUrl=SUPABASE_URL+'/auth/v1/verify?token='+encodeURIComponent(p.tokenHash)+'&type='+encodeURIComponent(type)+'&redirect_to='+encodeURIComponent(window.location.href.split('?')[0].split('#')[0]);
+      window.location.replace(verifyUrl);
+      return true;
+    }catch(e){ $('loginMsg').textContent='This invitation link could not be verified. Please ask the owner for a new invitation.'; $('loginMsg').classList.remove('hidden'); return false; }
+  }
   if(!access || !refresh || !['invite','recovery',''].includes(type||'')) return false;
   state.session={access_token:access,refresh_token:refresh,user:null};
   try{
