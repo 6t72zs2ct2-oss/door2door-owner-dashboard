@@ -504,11 +504,39 @@ main{width:100% !important;min-width:0 !important;overflow-x:hidden !important}
 
 <style>
 /* Preparation notice — clean neutral styling with clear price emphasis */
-.prep-notice{position:relative;background:#f8f9fa !important;border:1px solid #d9dee4 !important;border-radius:16px !important;color:#4b5563 !important;box-shadow:0 8px 24px rgba(15,23,42,.06);overflow:hidden;}
+.prep-notice{
+  position:relative;
+  width:100%;
+  max-width:100%;
+  margin:0;
+  padding:18px 18px 18px 22px !important;
+  background:#f8f9fa !important;
+  border:1px solid #d9dee4 !important;
+  border-radius:16px !important;
+  color:#4b5563 !important;
+  box-shadow:0 8px 24px rgba(15,23,42,.06);
+  overflow:hidden;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
 .prep-notice:before{background:#d71920 !important;box-shadow:none !important;}
 .prep-title{color:#111827 !important;font-weight:800 !important;letter-spacing:1.2px;}
-.prep-icon{color:#d71920 !important;border-color:#d9dee4 !important;background:#fff !important;}
+.prep-icon{color:#d71920 !important;border-color:#d9dee4 !important;background:#fff !important;flex:0 0 24px;}
+.prep-notice > div:last-child{
+  min-width:0;
+  line-height:1.65;
+  overflow-wrap:anywhere;
+}
 .prep-notice strong:last-child{color:#d71920 !important;font-weight:850 !important;}
+@media(max-width:600px){
+  .prep-notice{
+    padding:15px 14px 15px 19px !important;
+    border-radius:14px !important;
+    font-size:14px;
+    line-height:1.6;
+  }
+  .prep-title{margin-bottom:7px !important;}
+}
 </style>
 </head>
 <body>
