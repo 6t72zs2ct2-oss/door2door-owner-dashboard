@@ -18,7 +18,7 @@ h2{font-size:19px;margin:0 0 5px}.desc{font-size:13px;color:var(--muted);line-he
 label{display:block;font-size:13px;font-weight:750;margin:12px 0 6px}input,select,textarea{width:100%;border:1px solid #cdd6dd;border-radius:10px;padding:12px;font-size:15px;background:#fff;color:var(--text)}input:focus,select:focus,textarea:focus{outline:2px solid #f0d27a55;border-color:var(--gold)}textarea{min-height:88px;resize:vertical}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.packages{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .package{border:1px solid var(--line);border-radius:13px;padding:14px;cursor:pointer;background:#fff;min-height:170px}.package.active{border:2px solid var(--gold);background:#fffaf0}.package h3{margin:0;font-size:16px}.package .price{font-weight:850;color:#9a7419;font-size:18px;margin:6px 0}.package ul{padding-left:18px;margin:8px 0 0;color:#56616b;font-size:12px;line-height:1.5}.popular{display:inline-block;font-size:10px;background:var(--gold);padding:3px 6px;border-radius:5px;font-weight:850;margin-bottom:6px}
-.addon{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);padding:11px;border-radius:11px;margin:7px 0;cursor:pointer}.addon input{width:auto;margin-top:2px}.addon .aname{flex:1;font-size:14px}.addon strong{font-size:14px}
+.addon{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);padding:11px;border-radius:11px;margin:7px 0;cursor:pointer}.addon input{width:auto;margin-top:2px}.addon .aname{flex:1;font-size:14px}.addon strong{font-size:14px}.addon.disabled{opacity:.48;cursor:not-allowed;background:#f7f8f9}
 .notice{background:#fff8e5;border:1px solid #ead18a;border-radius:11px;padding:12px;font-size:13px;line-height:1.5}
 .summary{background:#f7f9fa;border-radius:12px;padding:14px;line-height:1.55;font-size:14px}.summary .row{display:flex;justify-content:space-between;gap:12px}.summary .grand{font-size:20px;font-weight:850;border-top:1px solid var(--line);margin-top:8px;padding-top:10px}
 .btn{width:100%;border:0;border-radius:11px;padding:15px;font-size:16px;font-weight:850;cursor:pointer;background:var(--gold);color:#17120a;margin-top:12px}.btn.secondary{background:#e7ebee}.btn:disabled{opacity:.48;cursor:not-allowed}
@@ -76,12 +76,17 @@ label{display:block;font-size:13px;font-weight:750;margin:12px 0 6px}input,selec
           <h3>Deluxe Detail</h3><div class="price" id="price-deluxe">Select vehicle</div>
           <ul><li>Everything in Express</li><li>Full interior cleaning</li><li>Seats cleaned</li><li>Carpet &amp; mat shampoo</li><li>Paint decontamination</li><li>Paint sealant &amp; protection</li></ul>
         </article>
+        <article class="package" data-package="paint_correction">
+          <h3>1-Step Paint Correction</h3><div class="price" id="price-paint_correction">Select vehicle</div>
+          <div class="mini">Exterior only • No interior detail</div>
+          <ul><li>Exterior wash &amp; foam cannon</li><li>Wheels &amp; tires cleaned</li><li>Tire dressing</li><li>Exterior windows &amp; mirrors</li><li>Paint decontamination / prep</li><li>1-step machine paint correction</li><li>Best for light-to-moderate paint imperfections</li></ul>
+        </article>
       </div>
     </section>
 
     <section class="card">
       <h2>Add-On Services</h2>
-      <p class="desc">Optional services can be added to any package.</p>
+      <p class="desc">Optional services can be added to your package. 1-Step Paint Correction is available as an add-on with Express and Deluxe Detail only.</p>
       <div id="addons"></div>
     </section>
 
@@ -178,38 +183,62 @@ const SUPABASE_KEY="sb_publishable_GanTyB9ILFu66BzVeKko5Q_uk7QksL0";
 
 const PRICES={
   basic:{sedan:50,suv:60,large:70},
-  interior:{sedan:60,suv:70,large:80},
-  express:{sedan:100,suv:120,large:140},
-  deluxe:{sedan:165,suv:185,large:205}
+  interior:{sedan:75,suv:90,large:105},
+  express:{sedan:115,suv:140,large:165},
+  deluxe:{sedan:270,suv:300,large:335},
+  paint_correction:{sedan:325,suv:375,large:425}
 };
 
 const PACKAGE_NAMES={
-  basic:"Basic Wash", interior:"Interior Detail", express:"Express Detail", deluxe:"Deluxe Detail"
+  basic:"Basic Wash", interior:"Interior Detail", express:"Express Detail", deluxe:"Deluxe Detail",
+  paint_correction:"1-Step Paint Correction"
 };
 
 const ADDONS=[
- ["pet_hair_removal","Pet Hair Removal",45],["seat_shampoo","Seat Shampoo",45],["leather_cleaning_conditioning","Leather Cleaning & Conditioning",45],
- ["carpet_shampoo","Carpet Shampoo",45],["paint_decon_hand_wax","Paint Decontamination + Hand Wax",55],["iron_decon","Iron Decon",35],
- ["tar_bug_wax_removal","Tar, Bug & Wax Removal",35],["spot_spray_treatment","Spot Spray Treatment",45],["black_trim_restoration","Black Trim Restoration",45],
- ["headlight_restoration","Headlight Restoration",50],["one_step_paint_correction","1-Step Paint Correction",155]
+ {key:"pet_hair_removal",name:"Pet Hair Removal",prices:{sedan:45,suv:45,large:45}},
+ {key:"seat_shampoo",name:"Seat Shampoo",prices:{sedan:45,suv:45,large:45}},
+ {key:"leather_cleaning_conditioning",name:"Leather Cleaning & Conditioning",prices:{sedan:45,suv:45,large:45}},
+ {key:"carpet_shampoo",name:"Carpet Shampoo",prices:{sedan:45,suv:45,large:45}},
+ {key:"paint_decon_hand_wax",name:"Paint Decontamination + Hand Wax",prices:{sedan:55,suv:65,large:75}},
+ {key:"iron_decon",name:"Iron Decon",prices:{sedan:35,suv:35,large:35}},
+ {key:"tar_bug_wax_removal",name:"Tar, Bug & Wax Removal",prices:{sedan:35,suv:35,large:35}},
+ {key:"spot_spray_treatment",name:"Spot Spray Treatment",prices:{sedan:45,suv:45,large:45}},
+ {key:"black_trim_restoration",name:"Black Trim Restoration",prices:{sedan:45,suv:50,large:55}},
+ {key:"headlight_restoration",name:"Headlight Restoration",prices:{sedan:50,suv:50,large:50}},
+ {key:"one_step_paint_correction",name:"1-Step Paint Correction",prices:{sedan:165,suv:185,large:205},packages:["express","deluxe"]}
 ];
 
 const $=id=>document.getElementById(id);
 let selectedPackage="express";
 
-ADDONS.forEach((a,i)=>{
+ADDONS.forEach(a=>{
   const label=document.createElement("label");
   label.className="addon";
-  label.innerHTML='<input type="checkbox" class="addonBox" data-key="'+a[0]+'" data-name="'+a[1]+'" data-price="'+a[2]+'"><span class="aname">'+a[1]+'</span><strong>$'+a[2]+'</strong>';
+  label.innerHTML='<input type="checkbox" class="addonBox" data-key="'+a.key+'" data-name="'+a.name+'"><span class="aname">'+a.name+'</span><strong class="addonPrice">$0</strong>';
   $("addons").appendChild(label);
 });
 
 function vehicleKey(){ return $("vehicle").value; }
 
+function refreshAddonOptions(){
+  const v=vehicleKey();
+  document.querySelectorAll(".addonBox").forEach(input=>{
+    const a=ADDONS.find(x=>x.key===input.dataset.key);
+    const allowed=!!v && (!a.packages || a.packages.includes(selectedPackage));
+    const label=input.closest(".addon");
+    const price=a.prices[v] || 0;
+    input.disabled=!allowed;
+    if(!allowed) input.checked=false;
+    input.dataset.price=price;
+    label.classList.toggle("disabled",!allowed);
+    label.querySelector(".addonPrice").textContent=v?"$"+price:"$—";
+  });
+}
+
 function getTotal(){
   const v=vehicleKey();
   if(!v) return null;
-  let packagePrice=PRICES[selectedPackage][v];
+  const packagePrice=PRICES[selectedPackage][v];
   let addonTotal=0;
   document.querySelectorAll(".addonBox:checked").forEach(x=>addonTotal+=Number(x.dataset.price));
   const area=$("area").value;
@@ -219,9 +248,10 @@ function getTotal(){
 
 function refreshPricing(){
   const v=vehicleKey();
-  ["basic","interior","express","deluxe"].forEach(k=>{
+  ["basic","interior","express","deluxe","paint_correction"].forEach(k=>{
     $("price-"+k).textContent=v?"$"+PRICES[k][v]:"Select vehicle";
   });
+  refreshAddonOptions();
   if(!v){
     $("vehicleStatus").textContent="Exact package pricing will appear after vehicle selection.";
     $("sumPackage").textContent="—"; $("sumAddons").textContent="$0"; $("sumTravel").textContent="$0"; $("total").textContent="$0";
